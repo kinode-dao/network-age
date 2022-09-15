@@ -1,0 +1,12 @@
+@use '../../styles/colors.scss' as colors;
+
+.card {
+  margin: 16px;
+  color: white;
+  background: radial-gradient(farthest-corner at 0% 0%, colors.$uq-darkpink+dd, colors.$midnightpurp+dd);
+  box-shadow: 5px 5px 5px colors.$vdark-gray;
+  position: relative;
+  border-radius: 16px;
+  padding: 16px;
+
+}
