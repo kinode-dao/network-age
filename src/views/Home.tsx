@@ -109,7 +109,7 @@ const Home  = () => {
           <Card href='https://www.youtube.com/channel/UC1Mb7Y7Yytdw9LOmUFdEKbA'>
             <Text large mono>
               <Row>
-                <FaYoutube className='mr1' /> 
+                <FaYoutube style={{ marginRight: 12 }} /> 
                 Hanging Out with Uqbar
               </Row>
             </Text>
