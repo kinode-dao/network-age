@@ -1,24 +1,28 @@
 
-
+import uqbar from '../assets/img/uqbar-pink.png'
 import Text from '../components/text/Text'
 import './Home.scss'
 import Row from '../components/spacing/Row'
 import { isMobileCheck } from '../utils/dimensions'
 import Card from '../components/page/Card'
 import Section from '../components/page/Section'
-import Parser from 'rss-parser'
 import './Home.scss'
 import { useEffect, useState } from 'react'
+import { Episode } from '../types/Episode'
+import EpisodeCard from '../components/network-age/EpisodeCard'
+import { FaMediumM, FaPen, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 const Home  = () => {
-  const [episodes, setEpisodes] = useState([])
-  const parser = new Parser() 
+  const [episodes, setEpisodes] = useState<Episode[]>([])
+  const isMobile = isMobileCheck()
 
   useEffect(() => {
-    const feed = parser.parseURL(`/api/feed`)
-    debugger
+    fetch(`/api/feed`)
+    .then(data => data.json())
+    .then(data => {
+      setEpisodes(data.items)
+    })
   }, [])
-  const isMobile = isMobileCheck()
 
   return (
     <Row className='home'>
@@ -32,79 +36,90 @@ const Home  = () => {
               Join the boys as they dissect and analyze everything from crypto technology and the blockchain economy to digital culture and borderless nations. 
             </Text>
           </Card>
-          <Card>
-            <Text large mono>Connect with Us</Text>
+          <Section>
+            <Text large mono className='yellow'>Connect</Text>
+            <Card>
+              <Row>
+                <Text mono large mr1 className='urbit'>~</Text>
+                <Text mono>
+                  ~mister-hoster-dozzod-hocwet/network-age-antechamber
+                </Text>
+              </Row>
+            </Card>
+          
+            <Card href='https://twitter.com/basileSportif'> 
+              <Row>
+                <FaTwitter className='mr1' />
+                <Text>
+                  @basileSportif
+                </Text>
+              </Row>
+            </Card>
+            
+            <Card href='https://twitter.com/AlephDao'>
+              <Row>
+                <FaTwitter className='mr1' />
+                <Text>
+                  @AlephDao
+                </Text>
+              </Row>
+            </Card>
+            
+            <Card href='https://twitter.com/BichulR'>
+              <Row>
+                <FaTwitter className='mr1' />
+                <Text>
+                  @BichulR
+                </Text>
+              </Row>
+            </Card>
 
-            <Text>
-              Join the growing Network Age community on Urbit: ~mister-hoster-dozzod-hocwet/network-age-antechamber
-            </Text>
-
-            <Text>
-              There, we chat all things Network Age, from digital nomadism to decentralized finance. Plus, you can get a sneak preview of upcoming podcast guests and suggest questions for our hosts. 
-            </Text>
-
-            <Text>
-              Or, if you're not yet Urbit-pilled, find us on Twitter: 
-
-              @basileSprotif
-
-              @AlephDao
-
-              @BichulR
-            </Text>
-          </Card>
+          </Section>
         </Section>
 
         <Section className='main'>
           <Text large mono className='yellow'>Top Episodes</Text>
-          <Card>
-            <Text>
-              Could we embed a feed that automatically updates this? 
-            </Text>
-          </Card>
+          {episodes.map((e, i) => <EpisodeCard episode={e} key={i} />)}
           
         </Section>
         <Section>
           <Text large mono className='yellow'>Related Projects</Text>
-          <Card>
-            <Text large mono>Uqbar Network</Text>
-            
-            <Text>
-              Uqbar is a seamless development environment and Zero-Knowledge rollup to Ethereum built atop the Urbit operating system. Together, Uqbar and Urbit unify a fragmented Web3 ecosystem to provide scalability, composability, and usability. 
-            </Text>
-            
-            <Text>
-              For more, visit the Uqbar website or join our Discord. 
-            </Text>
+          <Card href={'https://uqbar.network'}>
+            <Text large mono>Uqbar </Text>
+            <Row>
+              <img src={uqbar} className='mr1' style={{ fontSize:'x-large',  height: 40, background: 'white', borderRadius: 999, border: '3px solid'  }} />
+              <Text>
+                Uqbar is a seamless development environment and Zero-Knowledge rollup to Ethereum built atop the Urbit operating system. 
+              </Text>
+            </Row>
           </Card>
           <Card>
             <Text large mono>Aleph DAO</Text>
           </Card>
-          <Card>
+          <Card href={'https://urbit.org'}>
             <Text large mono>Urbit</Text>
-
-            <Text>
-              Urbit is a decentralized peer-to-peer network and clean-slate OS designed to offer users full ownership of personal data and greater autonomy in the Web3 stack. 
-            </Text>
-
-            <Text>
-              For help joining Urbit, explore these docs or DM any of the Network Age boys. 
-            </Text>
+            <Row>
+              <Text mono large mr1 className='urbit'>~</Text>
+              <Text>
+                Urbit is a decentralized peer-to-peer network and clean-slate OS. 
+              </Text>
+            </Row>
           </Card>
           <Text large mono className='yellow'>Can't Get Enough?</Text>
-          <Card>
-            <Text large mono>Hanging Out with Uqbar</Text>
-
-            <Text>
-              Check out the hit Network Age spinoff, Hanging Out with Uqbar, where ~bichul-ritsen interviews members of the Uqbar team. Grab a drink and hang out. 
+          <Card href='https://www.youtube.com/channel/UC1Mb7Y7Yytdw9LOmUFdEKbA'>
+            <Text large mono>
+              <Row>
+                <FaYoutube className='mr1' /> 
+                Hanging Out with Uqbar
+              </Row>
             </Text>
-      
           </Card>
-          <Card>
-            <Text large mono>Snake Shack</Text>
-
-            <Text>
-              And if you're the type that would rather read than listen, head over to ~bichul-ritsen's Snake Shack Substack, where the noted curmudgeon discusses his failed attempts at trad humanism in a digital world. 
+          <Card href='https://bichulritsen.substack.com/'>
+            <Text large mono>
+              <Row>
+                <FaPen style={{ marginRight: 12 }} />
+                Snake Shack
+              </Row>
             </Text>
           </Card>
         </Section>

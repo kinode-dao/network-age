@@ -20,4 +20,8 @@
     color: colors.$nwa-yellow;
     text-shadow: 1px 1px 0 colors.$vdark-gray, 2px 2px 0 colors.$vdark-gray, 3px 3px 0 colors.$vdark-gray;
   }
+
+  a {
+    text-decoration: none;
+  }
 }

@@ -1,10 +1,12 @@
 const app = require('express')()
+const Parser = new require('rss-parser')
+const parser = new Parser()
+const PODCAST_URL = `https://media.rss.com/thenetworkage/feed.xml`
 
-app.get('/api/feed', (req, res) => {
-  fetch(`https://media.rss.com/thenetworkage/feed.xml`)
-  .then(data => data.text())
-  .then(data => res.json(data))
-  .catch(err => res.json({ error: true, message: err }))
+app.get('/api/feed', async (req, res) => {
+  const feed = await parser.parseURL(PODCAST_URL)
+  
+  res.json(feed)
 })
 
 app.listen(8080, () => console.log('app listening on 8080'))
